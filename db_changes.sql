@@ -1,14 +1,16 @@
---------------------------------------
--- FIXES TO DATABASE PERIODIC_TABLE --
---------------------------------------
-/*
-	commands to fix the database and tables to meet the requirements of the project
-	for reference only, do not run this file as it will delete data and change the structure of the tables
-*/
+/* ================================================================================================ */
+/* CHANGES TO DATABASE PERIODIC_TABLE																*/
+/* ================================================================================================ */
+/* For reference only.																				*/
+/* Do not run this file as it will delete data and change the structure of the tables.				*/
+/* ================================================================================================ */
 
 
 
--- DELETE DATA
+
+/* ================================================================================================ */
+/* DELETE DATA																						*/
+/* ================================================================================================ */
 
 -- delete the non existent element, whose atomic_number is 1000, from the two tables
 DELETE FROM elements WHERE atomic_number = 1000;
@@ -16,7 +18,10 @@ DELETE FROM properties WHERE atomic_number = 1000;
 
 
 
--- TABLE: ELEMENTS
+
+/* ================================================================================================ */
+/* CHANGE TABLE: ELEMENTS																			*/
+/* ================================================================================================ */
 
 -- add the UNIQUE constraint to the symbol and name columns from the elements table
 ALTER TABLE elements ADD UNIQUE(symbol);
@@ -32,7 +37,10 @@ UPDATE elements SET symbol = INITCAP(symbol);
 
 
 
--- TABLE: TYPES
+
+/* ================================================================================================ */
+/* NEW TABLE: TYPES																					*/
+/* ================================================================================================ */
 
 -- create a types table that will store the three types of elements
 -- types table should have a type_id column that is an integer and the primary key
@@ -49,7 +57,10 @@ VALUES (1, 'nonmetal'), (2, 'metal'), (3, 'metalloid');
 
 
 
--- TABLE: PROPERTIES
+
+/* ================================================================================================ */
+/* CHANGE TABLE: PROPERTIES																			*/
+/* ================================================================================================ */
 
 -- set the atomic_number column from the properties table as a foreign key
 -- references the column of the same name in the elements table
@@ -103,7 +114,10 @@ ALTER TABLE properties ALTER COLUMN boiling_point_celsius SET NOT NULL;
 
 
 
--- INSERT DATA
+
+/* ================================================================================================ */
+/* INSERT DATA																						*/
+/* ================================================================================================ */
 
 -- add the element with atomic number 9 to database
 -- name is Fluorine, symbol is F
