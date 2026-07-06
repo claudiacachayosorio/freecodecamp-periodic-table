@@ -1,7 +1,7 @@
 # FIXES TO DATABASE PERIODIC_TABLE
 
 
-## Current tables
+## Initial tables
 
 ### elements
 - atomic_number INT PRIMARY KEY
