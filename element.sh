@@ -4,7 +4,7 @@
 # INTERACTIVE PERIODIC TABLE #
 ##############################
 
-# to run the script:
+# to execute this file, run the following command in the terminal:
 # ./element.sh <atomic_number|symbol|name>
 
 
