@@ -13,6 +13,7 @@
 /* ================================================================================================ */
 
 -- delete the non existent element, whose atomic_number is 1000, from the two tables
+
 DELETE FROM elements WHERE atomic_number = 1000;
 DELETE FROM properties WHERE atomic_number = 1000;
 
@@ -24,15 +25,18 @@ DELETE FROM properties WHERE atomic_number = 1000;
 /* ================================================================================================ */
 
 -- add the UNIQUE constraint to the symbol and name columns from the elements table
+
 ALTER TABLE elements ADD UNIQUE(symbol);
 ALTER TABLE elements ADD UNIQUE(name);
 
 -- symbol and name columns should have the NOT NULL constraint
+
 ALTER TABLE elements ALTER COLUMN symbol SET NOT NULL;
 ALTER TABLE elements ALTER COLUMN name SET NOT NULL;
 
 -- capitalize the first letter of all the symbol values in the elements table
 -- only capitalize the letter and not change any others
+
 UPDATE elements SET symbol = INITCAP(symbol);
 
 
@@ -48,10 +52,13 @@ UPDATE elements SET symbol = INITCAP(symbol);
 -- it will store the different types from the type column in the properties table
 
 CREATE TABLE types(
-	type_id INT PRIMARY KEY, type VARCHAR(30) NOT NULL
+	type_id INT PRIMARY KEY,
+	type VARCHAR(30) NOT NULL
 );
 
--- add three rows to types table whose values are the three different types from the properties table
+-- add three rows to types table
+-- values are the three different types from the properties table
+
 INSERT INTO types (type_id, type)
 VALUES (1, 'nonmetal'), (2, 'metal'), (3, 'metalloid');
 
@@ -64,33 +71,40 @@ VALUES (1, 'nonmetal'), (2, 'metal'), (3, 'metalloid');
 
 -- set the atomic_number column from the properties table as a foreign key
 -- references the column of the same name in the elements table
+
 ALTER TABLE properties
 ADD FOREIGN KEY (atomic_number) REFERENCES elements (atomic_number);
 
 -- properties table should have a type_id foreign key column
 -- references the type_id column from the types table
+
 ALTER TABLE properties
 ADD COLUMN type_id INT REFERENCES types (type_id);
 
 -- each row in properties table should have a type_id value
 -- references the correct type from the types table
+
 UPDATE properties SET type_id = 1 WHERE type = 'nonmetal';
 UPDATE properties SET type_id = 2 WHERE type = 'metal';
 UPDATE properties SET type_id = 3 WHERE type = 'metalloid';
 
 -- it should be an INT with the NOT NULL constraint
+
 ALTER TABLE properties ALTER COLUMN type_id SET NOT NULL;
 
 -- properties table should not have a type column
+
 ALTER TABLE properties DROP COLUMN type;
 
 -- rename the weight column to atomic_mass
+
 ALTER TABLE properties
 RENAME COLUMN weight TO atomic_mass;
 
 -- remove all the trailing zeros after the decimals from each row of the atomic_mass column
 -- may need to adjust a data type to DECIMAL for this
 -- final values they should be as they are in the atomic_mass.txt file
+
 ALTER TABLE properties
 ALTER COLUMN atomic_mass TYPE DECIMAL;
 
@@ -105,10 +119,12 @@ UPDATE properties SET atomic_mass = 15.999 WHERE atomic_number = 8;
 
 -- rename the melting_point column to melting_point_celsius
 -- rename the boiling_point column to boiling_point_celsius
+
 ALTER TABLE properties RENAME COLUMN melting_point TO melting_point_celsius;
 ALTER TABLE properties RENAME COLUMN boiling_point TO boiling_point_celsius;
 
 -- melting_point_celsius and boiling_point_celsius columns should not accept null values
+
 ALTER TABLE properties ALTER COLUMN melting_point_celsius SET NOT NULL;
 ALTER TABLE properties ALTER COLUMN boiling_point_celsius SET NOT NULL;
 
